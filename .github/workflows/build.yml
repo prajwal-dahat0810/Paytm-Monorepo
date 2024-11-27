@@ -3,7 +3,7 @@ name: Build Succeed on PR
 on:
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   build:
