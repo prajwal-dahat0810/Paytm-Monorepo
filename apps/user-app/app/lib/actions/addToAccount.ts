@@ -2,15 +2,14 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth";
 import axios from "axios";
-import { WEB_HOOK_URL } from "../config";
 const BANKS_WEBHOOK = [
   {
     name: "HDFC Bank",
-    url: `${WEB_HOOK_URL}/hdfcWebhook`,
+    url: `${process.env.WEB_HOOK_URL}/hdfcWebhook`,
   },
   {
     name: "Axis Bank",
-    url: `${WEB_HOOK_URL}/axisWebhook`,
+    url: `${process.env.WEB_HOOK_URL}/axisWebhook`,
   },
 ];
 export async function addToAccount(

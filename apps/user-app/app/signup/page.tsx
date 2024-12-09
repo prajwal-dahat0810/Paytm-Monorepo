@@ -2,8 +2,8 @@
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { BACKEND_URL } from "../lib/config";
 import { signIn } from "next-auth/react";
+
 export default function () {
   const [name, setName] = useState<string | null>(null);
   const [email, setEmail] = useState(null);
@@ -30,7 +30,7 @@ export default function () {
   async function handleSignup() {
     setLoading(true);
     try {
-      const response = await axios.post(`${BACKEND_URL}/api/signup`, {
+      const response = await axios.post(`/api/signup`, {
         name: name,
         email: email,
         password: password,
