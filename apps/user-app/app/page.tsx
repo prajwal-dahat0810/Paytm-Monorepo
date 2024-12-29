@@ -16,7 +16,8 @@ import prisma from "@repo/db/client";
 import Link from "next/link";
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  if (session === null) redirect("/api/auth/signin");
+  if (session === null) redirect("/in");
+  // if (session === null) redirect("/api/auth/signin");
   const balance = await getBalance();
 
   try {
@@ -36,14 +37,14 @@ export default async function Home() {
       }))
       .slice(0, 5);
   } catch (e) {
-    transactions = [];
+    transactions = null;
   }
   return (
     <div className="pt-16 w-full  bg-[#fffcf8] h-full">
       <AppbarClient />
       <div className="flex flex-row gap-0">
         <div className="w-72 max-sm:sr-only border-r border-slate-300 min-h-[747px]  pt-16">
-          <div className="">
+          <div className="text-[14px] ">
             <SidebarItem href={"/"} icon={<HomeIcon />} title="Home" />
             <SidebarItem href={"/"} icon={<SearchIcon />} title="Explore" />
             <SidebarItem
@@ -64,34 +65,38 @@ export default async function Home() {
           </div>
         </div>
         <div className=" flex gap-2 flex-col  w-full  ">
-          <div className=" w-full   p-6 ">
+          <div className=" w-full p-6 ">
             <Heading
               title={
                 session.user.name
-                  ? `Good afternoon, ${session.user.name} `
-                  : "Good afternoon, Anonymous"
+                  ? `Hi, ${session.user.name} `
+                  : "Hi, Anonymous"
               }
             />
           </div>
           {/*  */}
           <div className="px-5 max-sm:px-1 ">
-            <div className="bg-white p-6  rounded-lg shadow-lg  shadow-slate-300">
+            <div className="bg-white p-6 text-[14px]  rounded-lg shadow-lg  shadow-slate-300">
               <div className="mb-6">
                 <p className="text-gray-500">Balance</p>
-                <p className="text-4xl font-bold mt-2">
+                <p className="text-3xl font-bold mt-2">
                   Rs <span>{balance.amount / 100}</span>
                 </p>
               </div>
 
               {/* Timeline Chart (Placeholder) */}
               <div className="border-b my-6">
-                <div className="text-lg pb-3 max-sm:text-base text-slate-700">
+                <div className="text-[15px] pb-3 font-[600] max-sm:text-base text-slate-500">
                   Incomplete Transactions
                 </div>
                 <div className="h-72 bg-purple-50 px-5 pb-3 md:pt-7 max-sm:pt-3 text-slate-500">
-                  {transactions.length === 0 ? (
+                  {transactions === null ? (
                     <div className="flex w-full h-full justify-center items-start pt-16">
                       Data not available now{" "}
+                    </div>
+                  ) : transactions.length === 0 ? (
+                    <div className="flex w-full font-bold h-full justify-center items-start pt-16">
+                      No Incomplete Transaction
                     </div>
                   ) : (
                     <div>

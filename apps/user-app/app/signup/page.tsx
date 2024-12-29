@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 
 export default function () {
   const [name, setName] = useState<string | null>(null);
-  const [email, setEmail] = useState(null);
+  const [email, setEmail] = useState("");
   const [number, setNumber] = useState<number>(0);
   const [password, setPassword] = useState<string>("");
   const [message, setMessage] = useState<string>("");
@@ -29,23 +29,29 @@ export default function () {
   }, [open]);
   async function handleSignup() {
     setLoading(true);
+    if (email === "" && password === "") {
+      setLoading(false);
+      setMessage("Enter valid credentials");
+      setOpen(true);
+      return;
+    }
     try {
-      const response = await axios.post(`/api/signup`, {
-        name: name,
-        email: email,
-        password: password,
-        number: String(number),
-      });
-      const data = await response.data;
-      if (data.message === "success") {
-        setLoading(false);
-        setMessage(data.message);
-        setOpen(true);
-      } else {
-        setLoading(false);
-        setMessage(data.message);
-        setOpen(true);
-      }
+      // const response = await axios.post(`/api/signup`, {
+      //   name: name,
+      //   email: email,
+      //   password: password,
+      //   number: String(number),
+      // });
+      // const data = await response.data;
+      // if (data.message === "success") {
+      //   setLoading(false);
+      //   setMessage(data.message);
+      //   setOpen(true);
+      // } else {
+      //   setLoading(false);
+      //   setMessage(data.message);
+      //   setOpen(true);
+      // }
     } catch (e: any) {
       setLoading(false);
       console.log("error");
@@ -56,9 +62,9 @@ export default function () {
   return (
     <div className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <div>
+        <div className="w-[300px] bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="p-6 space-y-4 md:space-y-4 sm:p-4">
+            <div className="text-[12px]">
               {!open ? (
                 <div className="invisible w-full bg-red-500 rounded-md py-1 text-white  text-center border">
                   Create an account
@@ -68,41 +74,41 @@ export default function () {
                   User created Successfully,kindly login
                 </div>
               ) : (
-                <div className="w-full bg-red-500 rounded-md py-1 text-white  text-center border">
+                <div className="w-full  bg-red-500 rounded-md py-1 text-white  text-center border">
                   {message}
                 </div>
               )}
             </div>{" "}
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            <h1 className="text-start text-[18px] font-[640] leading-tight tracking-tight text-[#3C4256] md:text-2xl dark:text-white">
               Create an account
             </h1>
             <div className="flex  gap-3">
               <div>
-                <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <div className="block text-[12px] max-sm:my-3 font-[400] text-gray-900 dark:text-white">
                   Name
                 </div>
                 <input
                   onChange={(e) => setName(e.target.value)}
                   type="text"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border mt-2 border-gray-300 text-gray-900 text-[13px]  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full px-2 py-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="John"
                 />
               </div>
               <div>
-                <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <div className="block text-[12px] max-sm:my-3 font-[400] text-gray-900 dark:text-white">
                   Email*
                 </div>
                 <input
                   onChange={(e: any) => setEmail(e.target.value)}
                   type="email"
                   placeholder="name@gmail.com"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border mt-2 border-gray-300 text-gray-900 text-[13px]  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full px-2 py-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
                 />
               </div>
             </div>
             <div>
-              <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              <div className="block text-[12px] max-sm:my-3 font-[400] text-gray-900 dark:text-white">
                 Number*
               </div>
               <input
@@ -111,25 +117,25 @@ export default function () {
                 onChange={(e) => setNumber(e.target.valueAsNumber)}
                 placeholder="7865442342"
                 type="number"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border mt-2 px-2 border-gray-300 text-gray-900 text-[13px]  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full py-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
               />
             </div>
             <div>
-              <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              <div className="block text-[12px] max-sm:my-3 font-[400] text-gray-900 dark:text-white">
                 Password
               </div>
               <input
                 type="text"
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="*******"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 px-2 border mt-2 border-gray-300 text-gray-900 text-[13px]  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full py-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
               />
             </div>
             <button
               onClick={handleSignup}
-              className="w-full bg-black text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              className="w-full bg-black text-white bg-primary-600  font-medium rounded-lg text-[12px] px-5 py-1.5 max-sm:my-3 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
             >
               {loading ? (
                 <svg
@@ -152,11 +158,11 @@ export default function () {
                 "Create an account"
               )}
             </button>
-            <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+            <p className="text-[12px] font-light text-gray-500 dark:text-gray-400">
               Already have an account?
               <Link href="/signin">
-                <span className="text-gray-700 cursor-pointer font-bold">
-                  Login here
+                <span className="pl-1text-[12px] text-gray-700 cursor-pointer font-bold">
+                  Signin here
                 </span>
               </Link>
             </p>

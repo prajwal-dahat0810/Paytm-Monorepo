@@ -10,6 +10,7 @@ export default async function () {
         userId: Number(session?.user?.id),
       },
     });
+
     var transactions = txns
       .map((t: any) => ({
         time: t.startTime,
@@ -24,33 +25,33 @@ export default async function () {
   }
   return (
     <div className="w-screen bg-[#fffcf8] pt-20 max-sm:px-1">
-      <div className="text-4xl pl-3 text-[#6a51a6] pt-8 mb-8 font-bold">
+      <div className="text-[32px] pl-3 text-[#6a51a6] pt-8 mb-8 font-bold">
         Transactions
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 p-4">
+      <div className="grid text-[12px] grid-cols-1 gap-4 md:grid-cols-2 p-2">
         <div className="flex  justify-evenly w-2/12">
-          <button className="    font-medium text-sm px-5 py-2.5 me-2 mb-2 bg-slate-300 hover:bg-slate-50 text-black rounded-xl ">
+          <button className="   text-[12px] font-medium  px-5 py-2.5 me-2 mb-2 bg-slate-300  text-black rounded-xl ">
             History
           </button>
-          <button className="  font-medium  text-sm px-5 py-2.5 me-2 mb-2 bg-slate-50 hover:bg-slate-50 text-black rounded-xl ">
+          <button className="  font-medium text-[12px] px-5 py-2.5 me-2 mb-2 bg-slate-100  text-black rounded-xl ">
             Scheduled
           </button>
         </div>
       </div>
-      <div className=" grid grid-rows-2 max-sm:px-1   grid-cols-1 gap-x-10 gap-y-5 p-6  min-h-[520px] ">
+      <div className=" grid grid-rows-2 max-sm:px-1   grid-cols-1 gap-x-10 gap-y-5 p-3  min-h-[520px] ">
         <div className="bg-white  p-6 rounded-3xl shadow-lg md:col-start-1 md:col-span-1 md:row-start-1 md:row-span-2 shadow-slate-300">
           <div className="mb-6 pt-4 ">
-            <p className="text-gray-800 font-bold text-lg">Transactions</p>
+            <p className="text-gray-800 font-bold text-[16px]">Transactions</p>
           </div>
           {transactions.length === 0 ? (
             <div className="flex w-full h-full justify-center items-start pt-16">
               Data not available now{" "}
             </div>
           ) : (
-            <div className="pb-5">
+            <div className="pb-5 ">
               {transactions.length &&
                 transactions.map((t) => (
-                  <div className="flex justify-between">
+                  <div className="flex pb-2  justify-between">
                     <div className="flex flex-row gap-2 items-center">
                       <div>
                         <svg
@@ -70,16 +71,18 @@ export default async function () {
                       </div>
                       <div>
                         {" "}
-                        <div className="text-md md: font-bold max-sm:text-base">
+                        <div className="text-[13px] md:font-bold text-slate-700  max-sm:font-[600] max-sm:text-[14px]">
                           Received INR
                         </div>
-                        <div className="text-slate-600 md:text-sm max-sm:text-xs">
+                        <div className="text-slate-600 text-[13px]  max-sm:text-xs">
                           {t.time.toDateString()}
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-row justify-center">
-                      <span className="text-green-800 font-bold pr-1">+</span>{" "}
+                    <div className="flex  text-[13px]  flex-row items-center justify-center">
+                      <span className="text-green-500 text-[16px] font-bold ">
+                        +
+                      </span>{" "}
                       {t.amount / 100} Rs{" "}
                     </div>
                   </div>

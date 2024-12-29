@@ -9,21 +9,31 @@ export default function (props: {
 }) {
   const router = useRouter();
   async function handlePass() {
+    if (password === "" && number.toString().length !== 10) {
+      setLoading(false);
+      console.log("in false");
+      setMessage("Enter a valid credentials");
+      setOpen(true);
+      return;
+    }
     setLoading(true);
+
     try {
       const res = await signIn("credentials", {
         redirect: false,
         phone: number,
         password: password,
       });
-      setLoading(false);
       if (res?.error) {
+        setLoading(false);
         setMessage("Please Check Credentials ");
         setOpen(true);
         return;
       }
       router.push("/");
+      return;
     } catch (e) {
+      setLoading(false);
       setMessage("User Login failed");
       setOpen(true);
       return;
@@ -36,9 +46,8 @@ export default function (props: {
   const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     setTimeout(() => {
-      setLoading(false);
-
       setOpen(false);
+      setLoading(false);
 
       setMessage("");
     }, 5000);
@@ -47,24 +56,24 @@ export default function (props: {
   return (
     <div className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <div>
+        <div className=" w-[300px] md:max-w-md bg-white rounded-lg shadow dark:border md:mt-0  xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="p-3 md:space-y-3 sm:p-4">
+            <div className="my-2">
               {!open ? (
-                <div className="invisible w-full bg-red-500 rounded-md py-1 text-white  text-center border">
+                <div className="invisible text-[13px]  max-sm:py-0 w-full bg-red-500 rounded-md py-1 text-white  text-center border">
                   Create an account
                 </div>
               ) : (
-                <div className="w-full bg-red-500 rounded-md py-1 text-white  text-center border">
+                <div className="w-full text-[13px]  max-sm:py-0 bg-red-500 rounded-md py-1 text-white  text-center border">
                   {message}
                 </div>
               )}
             </div>{" "}
-            <h1 className="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Sign In
+            <h1 className="text-start text-[18px] font-[640] leading-tight tracking-tight text-[#3C4256] md:text-2xl dark:text-white">
+              Sign in to your account
             </h1>
             <div>
-              <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              <div className="block text-[12px] max-sm:my-3 font-[400] text-gray-900 dark:text-white">
                 Number*
               </div>
               <input
@@ -73,25 +82,24 @@ export default function (props: {
                 onChange={(e) => setNumber(e.target.valueAsNumber)}
                 placeholder="7865442342"
                 type="number"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required
+                className="bg-gray-50 border mt-2 border-gray-300 text-gray-900 text-[13px]  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />
             </div>
             <div>
-              <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              <div className="block  text-[12px] my-3 font-[400] text-gray-900 dark:text-white">
                 Password
               </div>
               <input
                 type="text"
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="*******"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 mt-2 border border-gray-300 text-gray-900 text-[13px] rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
               />
             </div>
             <button
               onClick={handlePass}
-              className="w-full bg-black text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              className="w-full bg-black  text-white bg-primary-600  font-medium rounded-lg text-[13px]  px-5 py-1.5 max-sm:my-3 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
             >
               {loading ? (
                 <svg
@@ -114,10 +122,10 @@ export default function (props: {
                 "Log In"
               )}
             </button>
-            <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+            <p className="text-[12px] font-light text-gray-500 dark:text-gray-400">
               Not have an account?{"  "}
               <Link href="/signup">
-                <span className="text-gray-700 cursor-pointer font-bold">
+                <span className="text-gray-700 text-[12px] cursor-pointer font-bold">
                   SignUp here
                 </span>
               </Link>

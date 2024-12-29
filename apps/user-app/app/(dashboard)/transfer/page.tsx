@@ -44,7 +44,7 @@ export async function getOnRampTransactions() {
       }))
       .slice(0, 5);
   } catch (e) {
-    console.log("errro", e);
+    console.log("error", e);
     return (txns = []);
   }
 }
@@ -56,7 +56,7 @@ export default async function () {
 
   return (
     <div className="w-screen bg-[#fffcf8] pt-20">
-      <div className="text-4xl pl-4 text-[#6a51a6] pt-8   mb-8 font-bold">
+      <div className="text-[32px] pl-4 text-[#6a51a6] pt-8   mb-8 font-bold">
         Transfer
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 p-4">

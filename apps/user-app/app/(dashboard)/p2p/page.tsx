@@ -24,22 +24,22 @@ export default function () {
   return (
     <div className="pt-16 h-[90vh] w-full">
       <div className="flex w-full h-full  justify-center items-center">
-        <div className="px-4 py-7 rounded-2xl border bg-white">
+        <div className="px-4 py-6 rounded-2xl border bg-white">
           {!openAlert ? (
-            <div className="w-full invisible bg-red-500 rounded-md py-1 text-white  text-center border">
+            <div className="w-full text-[13px] invisible bg-red-500 rounded-md py-1 text-white  text-center border">
               Round
             </div>
           ) : message !== "success" ? (
-            <div className="w-full bg-red-500 rounded-md py-1 text-white  text-center border">
+            <div className="w-full text-[13px] bg-red-500 rounded-md py-1 text-white  text-center border">
               {message}
             </div>
           ) : (
-            <div className="w-full bg-green-500 rounded-md py-1 text-white  text-center border">
+            <div className="w-full text-[13px] bg-green-500 rounded-md py-1 text-white  text-center border">
               Transaction Successful
             </div>
           )}
           <div className="w-full text-lg text-slate-800 font-bold text-center">
-            Send
+            P2P Transaction
           </div>
           <div className="min-w-72 pt-2">
             <TextInput
@@ -56,10 +56,13 @@ export default function () {
               }}
               label={"Amount"}
             />
-            <div className="pt-4 flex justify-center">
+            <div className="pt-5 flex justify-center">
               <Button
+                className="w-full text-center flex items-center justify-center"
                 onClick={async () => {
                   setProcessing(true);
+                  if (number.length === 0 && amount === "") {
+                  }
                   const response = await p2pTransfer(
                     number,
                     Number(amount) * 100

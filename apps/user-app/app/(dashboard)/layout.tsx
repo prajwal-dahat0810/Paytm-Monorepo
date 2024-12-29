@@ -8,7 +8,7 @@ export default function Layout({
   return (
     <div className="flex  bg-[#fffcf8]  ">
       <AppbarClient />
-      <div className="w-72 border-r max-sm:sr-only border-slate-300 min-h-[800px]  pt-32">
+      <div className="w-72 border-r text-[14px]  max-sm:sr-only border-slate-300 min-h-[800px]  pt-32">
         <div>
           <SidebarItem href={"/"} icon={<HomeIcon />} title="Home" />
           <SidebarItem href={"/"} icon={<SearchIcon />} title="Explore" />
