@@ -2,7 +2,6 @@
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { redirect, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 export default function (props: {
   searchParams: { callbackUrl: string | undefined };

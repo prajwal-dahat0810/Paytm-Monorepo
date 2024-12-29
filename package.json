@@ -25,9 +25,12 @@
   "dependencies": {
     "@prisma/client": "^5.22.0",
     "bcrypt": "^5.1.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.15.0",
     "next-auth": "^4.24.10",
     "prisma": "^5.22.0",
     "recoil": "^0.7.7",
+    "tailwind-merge": "^2.6.0",
     "zod": "^3.23.8"
   }
 }

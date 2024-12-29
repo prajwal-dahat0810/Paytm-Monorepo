@@ -62,6 +62,10 @@ export default function () {
                 onClick={async () => {
                   setProcessing(true);
                   if (number.length === 0 && amount === "") {
+                    setMessage("Please enter credentials");
+                    setProcessing(false);
+                    setOpenAlert(true);
+                    return;
                   }
                   const response = await p2pTransfer(
                     number,

@@ -2,8 +2,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { motion } from "framer-motion";
-import { cn } from "../app/lib/utils";
-import Image from "next/image";
+import cn from "../app/lib/utils";
+
 export const StickyScroll = ({
   content,
   contentClassName,
@@ -155,7 +155,7 @@ export const StickyScroll = ({
           backgroundImage: backgroundGradient,
         }}
         className={`  ${cn(
-          "hidden  bg-contain bg-center lg:block bg-no-repeat h-full min-h-[35rem] w-80 rounded-md bg-white sticky top-10 overflow-hidden",
+          "hidden bg-contain bg-center lg:block bg-no-repeat h-full min-h-[35rem] w-80 rounded-md bg-white sticky top-10 overflow-hidden",
           contentClassName
         )}`}
       >

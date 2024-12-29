@@ -1,7 +1,6 @@
 import db from "@repo/db/client";
 import { NextResponse, NextRequest } from "next/server";
 import bcrypt from "bcrypt";
-import { signIn } from "next-auth/react";
 
 export const POST = async (req: NextRequest) => {
   const body = await req.json();

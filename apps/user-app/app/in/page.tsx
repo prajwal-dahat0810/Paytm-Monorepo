@@ -1,13 +1,11 @@
 "use client";
-import { BackgroundGradientAnimation } from "../../components/BackgroundComponent";
 import React from "react";
-import { Appbar } from "@repo/ui/appbar";
 import { MobileComponent } from "../../components/MobileComponent";
 import { StickyScroll } from "../../components/StickyScroll";
 import { ShowCard } from "../../components/ShowCard";
 import { Footer } from "../../components/Footer";
 import Link from "next/link";
-export default function Landing() {
+export default function () {
   return (
     <div className="w-full pb-2 relative">
       {/* Wrapper with overflow-hidden */}
@@ -20,7 +18,7 @@ export default function Landing() {
           <div className="flex min-h-14 gap-x-4 justify-between items-center py-4 px-6 w-full">
             {/* Logo */}
             <div
-              onClick={(e) => {
+              onClick={() => {
                 window.location.href = "/in";
               }}
               className="cursor-pointer font-roboto font-bold text-xl text-white"
